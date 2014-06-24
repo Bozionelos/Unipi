@@ -1,5 +1,10 @@
 <!-- #820628  -->
 <!-- #002E52  -->
+<?php 
+session_start(); 
+
+?>
+
 <html>
     <head>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
@@ -23,6 +28,7 @@
     
     </head>
     <body>
+
         <div class="door_left" id="door_left"></div>
         <div class="door_right" id="door_right"></div>
         <div class="form_container" id="form_container">

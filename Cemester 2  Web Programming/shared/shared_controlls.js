@@ -1,6 +1,6 @@
 
-var session_handler = "../shared/session_handler.php";
-function register_session(user_id){
+    var session_handler = "../shared/session_handler.php";
+    function register_session(user_id){
     $.ajax({
         url: session_handler,
             type: 'POST',
@@ -12,5 +12,5 @@ function register_session(user_id){
             complete: function(data){
                 console.log(data.responseText);
             }
-        });
+    });
 }
