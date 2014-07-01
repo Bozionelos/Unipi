@@ -38,7 +38,7 @@
     </style>
 <body>
 
-    <div id="panel_greeting"> Control Panel V1.0 | Hello <?php $user->username; ?></div>
+    <div id="panel_greeting"> Control Panel V1.0 | Hello <?php echo $user->username; ?></div>
     <div id="panel_selection"> </div>
     <div id="panel_controls">
         <div id="panel_users" class="control" onclick="load_controls(1)"></div>
