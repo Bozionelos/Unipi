@@ -13,6 +13,7 @@
             $result = $user->authenticate($_POST['username'],$_POST['password']);
             if($result['id']){
             $user->user_id = $result['id'];
+            $user->username = $_POST['username'];
             $user->login();
             $user->isadmin = 1;
             $_SESSION['user'] = $user;
