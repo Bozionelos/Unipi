@@ -37,6 +37,7 @@
                 password: unhashed_pass,
             },
             complete: function(data){
+                console.log(data.responseText);
                 if(data.responseText.indexOf("deny") == -1){
                     $( "#form_container" ).hide( "slow", function() {
                          $( "#door_left" ).animate({
