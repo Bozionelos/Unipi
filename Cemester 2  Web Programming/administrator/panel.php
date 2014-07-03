@@ -24,17 +24,26 @@
             -ms-transition: all .4s ease-in-out;
         }
         .control:hover{cursor:pointer;}
-.transition {
-    -webkit-transform: scale(1.2); 
-    -moz-transform: scale(1.2);
-    -o-transform: scale(1.2);
-    transform: scale(1.2);
-}
+        .transition {
+            -webkit-transform: scale(1.2); 
+            -moz-transform: scale(1.2);
+            -o-transform: scale(1.2);
+            transform: scale(1.2);
+        }
+        .tools{width:98%; float:left; border:0px solid #820628; border-radius:4px; margin-left:1%; background:#fff; margin-top:20px;}
         
         #panel_users{background-image: url("../images/users.png"); background-size: 150px 150px; background-repeat: no-repeat;}
         #panel_menus{background-image: url("../images/design.png"); background-size: 150px 150px; background-repeat: no-repeat;}
         #panel_articles{background-image: url("../images/articles.png"); background-size: 150px 150px; background-repeat: no-repeat;}
         #panel_settings{background-image: url("../images/settings.png"); background-size: 150px 150px; background-repeat: no-repeat;}
+        
+        #menu_tree {float: left; width:200px; border-right:1px solid #820628;}
+        .menu_ul {line-height:30px; width:100%; background:#820628; color:white; font:15px arial; height:30px;  }
+        .menu_ul:hover{cursor:move;}
+        .menu_list {font:12px arial; margin-bottom: 30px;list-style: none; padding-top: 5px;}
+        .menu_list li {height:20px; line-height:20px;}
+        .menu_list li:hover {cursor:move;}
+        .ui-state-highlight { height:28px; line-height:30px;  border:1px dashed blue;}
     </style>
 <body>
 
@@ -46,10 +55,13 @@
         <div id="panel_articles" class="control" onclick="load_controls(3)"></div>
         <div id="panel_settings" class="control" onclick="load_controls(4)"></div>
     </div>
+    <div id="tools" class="tools"></div>
 </body>
     <script src="http://code.jquery.com/jquery-1.9.0.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
     <script src="panel.js" type="text/javascript"></script>
     <script src="controlsJS/menus.js" type="text/javascript"></script>
+    
 </html>
         
 <?php        

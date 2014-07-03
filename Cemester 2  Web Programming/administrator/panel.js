@@ -35,6 +35,7 @@ $(document).ready(function(){
 });
 
 function load_controls(item){
+    $("#tools").css("border","1px solid #820628");
     switch(item){
         case 1:
             load_users();
