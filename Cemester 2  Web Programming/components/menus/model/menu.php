@@ -8,7 +8,7 @@ class Menu_Collection{
     
     public function getMenus(){
         include('C:\xampp\htdocs\unipi\shared\db_connection.php');
-        $result = mysqli_query($db,"select * from unipi_menu");  
+        $result = mysqli_query($db,"select * from unipi_menu order by position");  
         while($menu_item = $result->fetch_row()) {
             
             $menu = new menu;

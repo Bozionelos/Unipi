@@ -43,7 +43,13 @@
         .menu_list {font:12px arial; margin-bottom: 30px;list-style: none; padding-top: 5px;}
         .menu_list li {height:20px; line-height:20px;}
         .menu_list li:hover {cursor:move;}
-        .ui-state-highlight { height:28px; line-height:30px;  border:1px dashed blue;}
+        .ui-state-highlight { height:28px; line-height:30px;  border:1px dashed #002E52;}
+        div#menu_functions{float: left;width: 75%; height: 400px; margin: 30px 0 0 30px;}
+        div#site_layout_top { float: left; width: 80%; height: 10%; border: 1px solid #002E52; margin-right: 9%; margin-left: 9%; margin-top: 10px; }
+        div#site_layout_right { width: 10%; height: 70%; border: 1px solid #002E52; margin-top: 1%;margin-left: 9%; float: left;}
+        div#site_layout_left { width: 10%; height: 70%; border: 1px solid #002E52; float: left; margin-top: 1%; margin-left: 1%; }
+        div#site_layout_content { width: 57.2%; float: left; height: 70%; border: 1px solid #002E52; margin-top: 1%; text-align: center;margin-left: 1%; font: 17px Arial; line-height: 200px; }
+        div#site_layout_footer {height: 10%;width: 80%;float: left;border: 1px solid #002E52;margin-top: 1%;margin-left: 9%;}
     </style>
 <body>
 
