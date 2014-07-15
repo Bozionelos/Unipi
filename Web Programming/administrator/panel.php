@@ -8,6 +8,7 @@
             include 'C:\xampp\htdocs\unipi\error\permission_denied.php';
         }else{
             $user = $_SESSION['user'];
+            
         ?>
 <html>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
@@ -52,7 +53,10 @@
         div#site_layout_content { width: 57.2%; float: left; height: 70%; border: 1px solid #002E52; margin-top: 1%; text-align: center;margin-left: 1%; font: 17px Arial; line-height: 200px; }
         div#site_layout_footer {height: 10%;width: 80%;float: left;border: 1px solid #002E52;margin-top: 1%;margin-left: 9%;}
     </style>
+        <script src="http://code.jquery.com/jquery-1.9.0.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
 <body>
+
 
     <div id="panel_greeting"> Control Panel V1.0 | Hello <?php echo $user->username; ?></div>
     <div id="panel_selection"> </div>
@@ -62,10 +66,14 @@
         <div id="panel_articles" class="control" onclick="load_controls(3)"></div>
         <div id="panel_settings" class="control" onclick="load_controls(4)"></div>
     </div>
-    <div id="tools" class="tools"></div>
+    <div id="tools" class="tools">
+    <!-- edw 8a ginetai include to XX.view.php pou pairnoume -->
+        
+        <?php 
+            include 'C:\xampp\htdocs\unipi\shared\component_handler.php'; ?>
+    </div>
 </body>
-    <script src="http://code.jquery.com/jquery-1.9.0.js" type="text/javascript"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
+
     <script src="panel.js" type="text/javascript"></script>
     <script src="controlsJS/menus.js" type="text/javascript"></script>
     

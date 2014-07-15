@@ -6,7 +6,7 @@ class Users_Collection{
         
     }
     
-    public function getMenus(){
+    public function getAllUsers(){
         include('C:\xampp\htdocs\unipi\shared\db_connection.php');
         $result = mysqli_query($db,"select * from unipi_user, unipi_personal_info where unipi_personal_info.user_id = unipi_user.id");  
         while($users = $result->fetch_row()) {
@@ -30,7 +30,7 @@ class Users_Collection{
         return $this->users_collection;
     }
 }
-class Menu{
+class user{
     public $user_id;
     public $username;
     public $block;
@@ -40,7 +40,6 @@ class Menu{
     public $fname;
     public $lname;
     public $pname;
-    public $token;
     public $telephone;
     public $address;
     public $cemester;
