@@ -35,10 +35,10 @@ $(document).ready(function(){
 });
 
 function load_controls(item){
-    $("#tools").css("border","1px solid #820628");
+    
     switch(item){
         case 1:
-            load_users();
+            window.location = document.URL+"?component=users";
             break;
         case 2:
             load_menus();
@@ -53,7 +53,7 @@ function load_controls(item){
 }
 
 function load_users(){
-       
+    
 }
 
 

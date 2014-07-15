@@ -10,4 +10,9 @@
         echo json_encode($out);
     }
 
+    if($_POST['action'] == "get_xml"){
+        include 'users.xml.php';
+        
+    }
+
 ?>

@@ -32,7 +32,7 @@
             -o-transform: scale(1.2);
             transform: scale(1.2);
         }
-        .tools{width:98%; float:left; border:0px solid #820628; border-radius:4px; margin-left:1%; background:#fff; margin-top:20px;}
+        .tools{width:98%; float:left; border:0px solid #820628; border-radius:4px; margin-left:1%; background:#fff; margin-top:20px; padding-bottom:20px;}
         
         #panel_users{background-image: url("../images/users.png"); background-size: 150px 150px; background-repeat: no-repeat;}
         #panel_menus{background-image: url("../images/design.png"); background-size: 150px 150px; background-repeat: no-repeat;}
@@ -52,6 +52,22 @@
         div#site_layout_left { width: 10%; height: 70%; border: 1px solid #002E52; float: left; margin-top: 1%; margin-left: 1%; }
         div#site_layout_content { width: 57.2%; float: left; height: 70%; border: 1px solid #002E52; margin-top: 1%; text-align: center;margin-left: 1%; font: 17px Arial; line-height: 200px; }
         div#site_layout_footer {height: 10%;width: 80%;float: left;border: 1px solid #002E52;margin-top: 1%;margin-left: 9%;}
+        
+        #users   {width:100%; }
+        #users th{background:#820628; color:white; height:30px;}
+        #users td{background:lightgrey; height:20px; padding-left: 5px;}
+        
+        #user_sub_menu{float:left; height:60px; margin-top:20px; margin-bottom:20px; border:0px solid #820628; width:100%;}
+        #add_user, #delete_users{width:40px; height:40px; float:left; border-radius:100%; background:#820628; border:1px solid #820628; color:white; text-align: center; line-height: 40px; font-size: 40px; margin-left:20px; font-family:arial;}
+        #delete_users {line-height:35px !important;}
+        #add_user:hover, #delete_users:hover{background:white; cursor:pointer; color:#820628;}
+        
+        
+        #footer{width:100%; height:40px; background:#820628; text-align:center; line-height:40px; margin-top:30px; color:white; float:left; border-radius:4px;}
+        
+        #form_container {float:left; width:400px; margin-left:30px;}
+        .fieldlabel {width:120px; text-align:center; color:white; height:30px; line-height:30px; float:left; background:#820628;}
+        .input_fields {width: 250px; height:30px; float:left; margin-left: 20px; margin-bottom: 10px; border:0px solid red; border-bottom:1px solid #820628;}
     </style>
         <script src="http://code.jquery.com/jquery-1.9.0.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
@@ -72,6 +88,7 @@
         <?php 
             include 'C:\xampp\htdocs\unipi\shared\component_handler.php'; ?>
     </div>
+    <div id="footer">John Paraskakis & Stefanos Bozionelos - University of Piraeus 2014</div>
 </body>
 
     <script src="panel.js" type="text/javascript"></script>
