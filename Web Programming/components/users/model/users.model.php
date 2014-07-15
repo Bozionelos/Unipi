@@ -29,6 +29,29 @@ class Users_Collection{
         }
         return $this->users_collection;
     }
+    public function getSpecificUser($id){
+        include('C:\xampp\htdocs\unipi\shared\db_connection.php');
+        $result = mysqli_query($db,"select * from unipi_user, unipi_personal_info where unipi_personal_info.user_id = unipi_user.id AND unipi_user.id = ".$id);  
+        while($users = $result->fetch_row()) {
+            
+            $user = new user;
+            $user->user_id = $users[0];
+            $user->username = $users[1];
+            $user->block = $users[3];
+            $user->token = $users[4];
+            $user->email = $users[5];
+            $user->type = $users[6];
+            $user->fname = $users[9];
+            $user->lname = $users[10];
+            $user->pname = $users[11];
+            $user->telephone = $users[12];
+            $user->address = $users[13];
+            $user->cemester = $users[14];
+            $user->mstatus = $users[15];
+            array_push($this->users_collection,$user);
+        }
+        return $this->users_collection;
+    }
 }
 class user{
     public $user_id;

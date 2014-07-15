@@ -14,5 +14,14 @@
         include 'users.xml.php';
         
     }
+    
+    if($_POST['action'] == "get_user"){
+        $collection = new Users_Collection;
+        
+        $temp = $collection->getSpecificUser($_POST['user_id']);
+        $out = array_values($temp);
+        echo json_encode($out);
+        
+    }
 
 ?>

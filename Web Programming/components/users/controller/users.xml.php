@@ -2,7 +2,7 @@
 $doc = new DOMDocument();
 $doc->loadXML('
 <fields>
-    <field id="id" name="User Id" type="text"></field>
+    <field id="user_id" name="User Id" type="text"></field>
     <field id="username" name="Username" type="text"></field>
     <field id="password" name="Password" type="password"></field>
     <field id="email" name="E-Mail" type="text"></field>
