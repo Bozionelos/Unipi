@@ -3,10 +3,11 @@
 <?php
         require('C:\xampp\htdocs\unipi\components\login\models\login.php');
         session_start();
-        $user = $_SESSION['user'];
+        
         if(!isset($_SESSION['user'])){
-            header( 'Location: C:\xampp\htdocs\unipi\error\permission_denied.php' );
+            include 'C:\xampp\htdocs\unipi\error\permission_denied.php';
         }else{
+            $user = $_SESSION['user'];
         ?>
 <html>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
