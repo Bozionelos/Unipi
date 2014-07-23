@@ -24,4 +24,12 @@
         
     }
 
+    if($_POST['action'] == "get_user_username"){
+        $collection = new Users_Collection;
+        
+        $temp = $collection->getUserByUsername($_POST['username'], $_POST['exclude']);
+        echo $temp;
+        
+    }
+
 ?>

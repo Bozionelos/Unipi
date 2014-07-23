@@ -2,10 +2,16 @@
 
 class Users_Collection{
     public $users_collection = array();
+    public $ucount;
     public function adduser($user){
         
     }
-    
+    public function getUserByUsername($username, $id_to_exclude){
+        include('C:\xampp\htdocs\unipi\shared\db_connection.php');
+        $result = mysqli_query($db,"select * from unipi_user where unipi_user.username = '".$username."' AND unipi_user.id != ".$id_to_exclude);  
+        $this->ucount = $result->num_rows;
+        return $this->ucount;
+    }
     public function getAllUsers(){
         include('C:\xampp\htdocs\unipi\shared\db_connection.php');
         $result = mysqli_query($db,"select * from unipi_user, unipi_personal_info where unipi_personal_info.user_id = unipi_user.id");  
@@ -37,6 +43,7 @@ class Users_Collection{
             $user = new user;
             $user->user_id = $users[0];
             $user->username = $users[1];
+            $user->password = $users[2];
             $user->block = $users[3];
             $user->token = $users[4];
             $user->email = $users[5];
@@ -56,6 +63,7 @@ class Users_Collection{
 class user{
     public $user_id;
     public $username;
+    public $password;
     public $block;
     public $token;
     public $email;

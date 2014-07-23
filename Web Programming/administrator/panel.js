@@ -38,7 +38,8 @@ function load_controls(item){
     
     switch(item){
         case 1:
-            window.location = document.URL+"?component=users";
+            var base = document.URL.split("?");
+            window.location = base[0]+"?component=users";
             break;
         case 2:
             load_menus();

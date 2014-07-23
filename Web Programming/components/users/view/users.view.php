@@ -1,5 +1,8 @@
+<script src="http://83.212.102.33/unipi/components/users/view/users.lib.js"></script>
 <script>
-$("#tools").css("border","1px solid #820628");
+    
+    $("#tools").css("border","1px solid #820628");
+
 </script>
 
 <?php 
@@ -86,18 +89,30 @@ if(isset($_REQUEST['user'])){
                              var innerHTML = '<div id="user_sub_menu">';
                              innerHTML += '<div id="add_user" onclick="new_user()">+</div>'+
                                  '<div id="delete_users" onclick="delete_selected()">x</div>'+
-                                 '<div id="save" onclick="save_new()">Save</div>'+'</div><div id="form_container">';
+                                 '<div id="save" onclick="save_new()">Save</div>'+
+                                 '<div id="close" onclick="user_close()">Close</div></div><div id="form_container">';
                              for(var i =0; i<fieldset.length;i++){
                                  var field = fieldset[i];
                                  innerHTML += '<div class="fieldlabel">'+field.getAttribute("name")+
                                      '</div><input class="input_fields" type="'+field.getAttribute("type")+
-                                     '" id="'+field.getAttribute("id")+'" value="'+selected[field.getAttribute("id")]+'"/><br>';
+                                     '" id="'+field.getAttribute("id")+'" value="'+selected[field.getAttribute("id")]+
+                                     '" onclick="display_span('+field.getAttribute("id")+')"'+
+                                     'onblur="validate('+field.getAttribute("id")+')"/>'+
+                                     '<div id="span'+field.getAttribute("id")+'" class="span_label"></div>'+
+                                 '<br>';
                              }
                              document.getElementById("tools").innerHTML = innerHTML+'</div>';
                          }
                      });
                  }
              });
+            
+            function new_user(){
+                var base = window.location.href.split( '?' );
+                window.location = base[0]+'?component=users&user=new';   
+            }
+        
+            
         </script>
         <?php
     }
@@ -131,7 +146,7 @@ else{
             innerHTML += '<table id="users"><tr><th>Select</th><th>User Id</th><th>Username</th><th>First Name</th><th>Last Name</th><th>E-Mail</th></tr>';
             for(var i=0;i<users.length;i++){
                 var temp_user = users[i];
-                innerHTML += '<tr><td style="text-align: center;"><input type="checkbox" onchange="select_user('+temp_user.user_id+')"></td>'+ 
+                innerHTML += '<tr onclick="edit_user('+(temp_user.user_id)+')"><td style="text-align: center;"><input type="checkbox" onchange="select_user('+temp_user.user_id+')"></td>'+ 
                              '<td>'+temp_user.user_id+'</td>'+
                              '<td>'+temp_user.username+'</td>'+ 
                              '<td>'+temp_user.fname+'</td>'+ 
@@ -151,6 +166,8 @@ else{
             var base = window.location.href.split( '?' );
             window.location = base[0]+'?component=users&user=new';   
         }
+        
+        
     </script>
 
 <?php
@@ -158,4 +175,5 @@ else{
     }
 
 ?>
+
 

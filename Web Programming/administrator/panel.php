@@ -14,7 +14,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
     <style>
-        body{ height:99%; background:#fff;}  
+        body{ height:99%; background:#fff; font-family:arial;}  
         #panel_greeting{ width:80%; float:left; height:40px; text-align:left; line-height:40px; font-family:Arial; font-weight:15px;}
         #panel_selection{ width:20%; float:left; height:40px; text-align:right; line-height:40px; font-family:Arial; font-weight:15px; }
         #panel_controls{ width:98%; float:left; border:1px solid black; border-radius:4px; margin-left:1%; background:#820628;} 
@@ -58,8 +58,8 @@
         #users td{background:lightgrey; height:20px; padding-left: 5px;}
         
         #user_sub_menu{float:left; height:60px; margin-top:20px; margin-bottom:20px; border:0px solid #820628; width:100%;}
-        #add_user, #delete_users{width:40px; height:40px; float:left; border-radius:100%; background:#820628; border:1px solid #820628; color:white; text-align: center; line-height: 40px; font-size: 40px; margin-left:20px; font-family:arial;}
-        #delete_users {line-height:35px !important;}
+        #add_user, #delete_users{width:30px; height:30px; float:left; border-radius:100%; background:#820628; border:1px solid #820628; color:white; text-align: center; line-height: 30px; font-size: 20px; margin-left:20px; font-family:arial;}
+        #delete_users {line-height:30px !important;}
         #add_user:hover, #delete_users:hover{background:white; cursor:pointer; color:#820628;}
         
         
@@ -67,9 +67,14 @@
         
         #form_container {float:left; width:400px; margin-left:30px;}
         .fieldlabel {width:120px; text-align:center; color:white; height:30px; line-height:30px; float:left; background:#820628;}
-        .input_fields {width: 250px; height:30px; float:left; margin-left: 20px; margin-bottom: 10px; border:0px solid red; border-bottom:1px solid #820628;}
-        #save{ width:70px; float:left; text-align:center; height:30px; line-height:30px; margin-top:4px; border:1px solid #820628; background:#820628; border-radius:4px; margin-left:20px; color:white;}
-        #save:hover {background:white; color:#820628; cursor:pointer;}
+        .input_fields {width: 250px; height:30px; float:left; margin-left: 20px; margin-bottom: 10px; border:0px solid red; border-bottom:1px solid #820628; font-size: 16px;}
+        #save , #close{ width:70px; float:left; text-align:center; height:30px; line-height:30px; border:1px solid #820628; background:#820628; border-radius:4px; margin-left:20px; color:white;}
+        #save:hover ,#close:hover{background:white; color:#820628; cursor:pointer;}
+        
+        .span_label{width: 500px;
+float: left;
+margin-top: -30px;
+margin-left: 400px;}
     </style>
         <script src="http://code.jquery.com/jquery-1.9.0.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
