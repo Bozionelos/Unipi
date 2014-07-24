@@ -71,10 +71,8 @@
         #save , #close{ width:70px; float:left; text-align:center; height:30px; line-height:30px; border:1px solid #820628; background:#820628; border-radius:4px; margin-left:20px; color:white;}
         #save:hover ,#close:hover{background:white; color:#820628; cursor:pointer;}
         
-        .span_label{width: 500px;
-float: left;
-margin-top: -30px;
-margin-left: 400px;}
+        .span_label{width: 500px; float: left; margin-top: -30px; margin-left: 400px;}
+        .select{width: 250px; height:30px; float:left; margin-left: 20px; margin-bottom: 10px; border:0px solid red; border-bottom:1px solid #820628; font-size: 16px;}
     </style>
         <script src="http://code.jquery.com/jquery-1.9.0.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>

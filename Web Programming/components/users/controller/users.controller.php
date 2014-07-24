@@ -32,4 +32,13 @@
         
     }
 
+    if($_POST['action'] == "get_user_groups"){
+        $collection = new Usergroups;
+        
+        $temp = $collection->getUserGroups();
+        $out = array_values($temp);
+        echo json_encode($out);
+    }
+
+
 ?>

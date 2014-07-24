@@ -1,3 +1,14 @@
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = 0, len = this.length; i < len; i++) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+}
+
 function user_close(){
     var base = window.location.href.split( '?' );
     window.location = base[0];
@@ -9,7 +20,6 @@ function edit_user(id){
 }
 var memory_username;
 function display_span(span){
-    console.log(span.id);
     switch(span.id){
         case "user_id":
             document.getElementById("spanuser_id").innerHTML = "You cannot define or change the User ID this is done automatically";
@@ -76,6 +86,64 @@ function validate(span){
     }
     
 }
+
+function save_user(){
+    var user_id = document.getElementById("user_id").value;
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var block = document.getElementById("block").value;
+    var email = document.getElementById("email").value;
+    var token = document.getElementById("token").value;
+    var type = document.getElementById("type").options[document.getElementById("type").selectedIndex].value.split(" --> ");
+    
+    var fname = document.getElementById("fname").value;
+    var lname = document.getElementById("lname").value;
+    var pname = document.getElementById("pname").value;
+    var telephone = document.getElementById("telephone").value;
+    var address = document.getElementById("address").value;
+    var cemester = document.getElementById("cemester").value;
+    
+    
+}
+
+function complete_form(){
+    $.ajax({
+            url: "../components/users/controller/users.controller.php",
+            type: 'POST',
+            dataType: "json",
+            data: {
+                action:"get_user_groups",
+            },
+            complete: function(data){
+                var result1 = data.responseText; 
+                groups = new Array();
+                groups = jQuery.parseJSON(data.responseText);
+                
+                var current_group = "none";
+                if(document.getElementById("type").value){
+                    current_group = document.getElementById("type").value;
+                }
+                
+                document.getElementById("spantype").remove();
+                document.getElementById("type").remove();
+                console.log(groups);
+                var innerHTML = '<select id="type" class="select">';
+                for(var i=0;i<groups.length;i++){
+                    var temp = groups[i];
+                    if(temp.contains(current_group)){
+                        innerHTML += '<option id="usergroup'+i+'" selected="true">'+temp+'</option>';
+                    }
+                    else{
+                        innerHTML += '<option id="usergroup'+i+'">'+temp+'</option>';
+                    }
+                }
+                innerHTML += '</select>';
+                document.getElementById("form_container").innerHTML += innerHTML; 
+            }
+        });
+}
+
+
 
 function getUrlVars() {
     var vars = {};

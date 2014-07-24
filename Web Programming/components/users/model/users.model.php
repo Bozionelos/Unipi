@@ -30,7 +30,6 @@ class Users_Collection{
             $user->telephone = $users[12];
             $user->address = $users[13];
             $user->cemester = $users[14];
-            $user->mstatus = $users[15];
             array_push($this->users_collection,$user);
         }
         return $this->users_collection;
@@ -54,7 +53,6 @@ class Users_Collection{
             $user->telephone = $users[12];
             $user->address = $users[13];
             $user->cemester = $users[14];
-            $user->mstatus = $users[15];
             array_push($this->users_collection,$user);
         }
         return $this->users_collection;
@@ -74,7 +72,7 @@ class user{
     public $telephone;
     public $address;
     public $cemester;
-    public $mstatus;
+
     
     public function __construct(array $arguments = array()) {
         if (!empty($arguments)) {
@@ -96,6 +94,18 @@ class user{
 
         return $this;
     } 
+}
+
+class Usergroups{
+    public $groups_collection = array(); 
+    public function getUserGroups(){
+        include('C:\xampp\htdocs\unipi\shared\db_connection.php');
+        $result = mysqli_query($db,"select * from unipi_user_type");  
+        while($groups = $result->fetch_row()) {
+            array_push($this->groups_collection,($groups[0]." --> ".$groups[1]));
+        }
+        return $this->groups_collection;
+    }
 }
 
 ?>

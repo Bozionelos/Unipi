@@ -34,14 +34,21 @@ if(isset($_REQUEST['user'])){
                 var fieldset = fields[0].getElementsByTagName("field");
                 var innerHTML = '<div id="user_sub_menu">';
                 innerHTML += '<div id="add_user" onclick="new_user()">+</div>'+
-                '<div id="delete_users" onclick="delete_selected()">x</div>'+
-                '<div id="save" onclick="save_new()">Save</div>'+'</div><div id="form_container">';
-                
-                for(var i =0; i<fieldset.length;i++){
-                    var field = fieldset[i];
-                    innerHTML += '<div class="fieldlabel">'+field.getAttribute("name")+'</div><input class="input_fields" type='+field.getAttribute("type")+' id='+field.getAttribute("id")+''+'/><br>';
-                }
-                document.getElementById("tools").innerHTML = innerHTML+'</div>';
+                        '<div id="delete_users" onclick="delete_selected()">x</div>'+
+                        '<div id="save" onclick="save_user()">Save</div>'+
+                        '<div id="close" onclick="user_close()">Close</div></div><div id="form_container">';
+                        for(var i =0; i<fieldset.length;i++){
+                            var field = fieldset[i];
+                            innerHTML += '<div class="fieldlabel">'+field.getAttribute("name")+
+                            '</div><input class="input_fields" type="'+field.getAttribute("type")+
+                            '" id="'+field.getAttribute("id")+'" value="'+
+                            '" onclick="display_span('+field.getAttribute("id")+')"'+
+                            'onblur="validate('+field.getAttribute("id")+')"/>'+
+                            '<div id="span'+field.getAttribute("id")+'" class="span_label"></div>'+
+                            '<br>';
+                        }
+                        document.getElementById("tools").innerHTML = innerHTML+'</div>';
+                        complete_form();
              }
         });
         </script>
@@ -89,7 +96,7 @@ if(isset($_REQUEST['user'])){
                              var innerHTML = '<div id="user_sub_menu">';
                              innerHTML += '<div id="add_user" onclick="new_user()">+</div>'+
                                  '<div id="delete_users" onclick="delete_selected()">x</div>'+
-                                 '<div id="save" onclick="save_new()">Save</div>'+
+                                 '<div id="save" onclick="save_user()">Save</div>'+
                                  '<div id="close" onclick="user_close()">Close</div></div><div id="form_container">';
                              for(var i =0; i<fieldset.length;i++){
                                  var field = fieldset[i];
@@ -102,6 +109,7 @@ if(isset($_REQUEST['user'])){
                                  '<br>';
                              }
                              document.getElementById("tools").innerHTML = innerHTML+'</div>';
+                             complete_form();
                          }
                      });
                  }
