@@ -3,8 +3,31 @@
 class Users_Collection{
     public $users_collection = array();
     public $ucount;
-    public function adduser($user){
-        
+    public function addUser($user){
+        include('C:\xampp\htdocs\unipi\shared\db_connection.php');
+        if($user['user_id'] == ""){
+            $type = $user['type'];
+            if(is_array($user['type'])){
+                $type = $user['type'][0];  
+            }
+            $result = mysqli_query($db,"insert into unipi_user (username,password,block,token,email, type) values ('".$user['username']."','".$user['password']."',".$user['block'].",'".$user['token']."','".$user['email']."',".$type.") "); 
+            
+            
+            $result2 = mysqli_query($db,"select * from unipi_user where unipi_user.username = '".$user['username']."'");
+            while($id = $result2->fetch_row()) {
+                $newId = $id[0];   
+            }
+            $result = mysqli_query($db,"insert into unipi_personal_info (user_id,first_name,last_name,parent_name,telephone,address, cemester) values (".$newId.",'".$user['fname']."','".$user['lname']."','".$user['pname']."','".$user['telephone']."','".$user['address']."','".$user['cemester']."') "); 
+        }
+        else{
+            $type = $user['type'];
+            if(is_array($user['type'])){
+                $type = $user['type'][0];  
+            }
+            $result = mysqli_query($db,"update unipi_user set username = '".$user['username']."' ,password  = '".$user['password']."',block = ".$user['block']." ,token = '".$user['token']."' ,email = '".$user['email']."' , type  = ".$type."  where id= ".$user['user_id']);  
+                                   
+            $result = mysqli_query($db,"update unipi_personal_info set first_name = '".$user['fname']."' ,last_name  = '".$user['lname']."',parent_name = '".$user['pname']."' ,telephone = '".$user['telephone']."' ,address = '".$user['address']."' , cemester  = '".$user['cemester']."'  where user_id= ".$user['user_id']);   
+        }
     }
     public function getUserByUsername($username, $id_to_exclude){
         include('C:\xampp\htdocs\unipi\shared\db_connection.php');

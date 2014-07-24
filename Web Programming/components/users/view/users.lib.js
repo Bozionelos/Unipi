@@ -1,3 +1,29 @@
+
+    var allfields;
+ $.ajax({
+     url: "../components/users/controller/users.controller.php",
+    type: 'POST',
+    dataType: "json",
+    data: {
+        action:"get_xml",
+    },
+    complete: function(data){
+    var result1 = data.responseText;
+        if (window.DOMParser){
+            parser=new DOMParser();
+            xmlDoc=parser.parseFromString(result1,"text/xml");
+        }
+        else{
+            xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+            xmlDoc.async=false;
+            xmlDoc.loadXML(result1);
+        }
+        var fields = xmlDoc.getElementsByTagName("fields");
+        var fieldset = fields[0].getElementsByTagName("field");
+        allfields = fieldset;
+    }
+ });
+
 Element.prototype.remove = function() {
     this.parentElement.removeChild(this);
 }
@@ -19,54 +45,28 @@ function edit_user(id){
     window.location = base[0]+"?component=users&user="+id;
 }
 var memory_username;
+
 function display_span(span){
-    switch(span.id){
-        case "user_id":
-            document.getElementById("spanuser_id").innerHTML = "You cannot define or change the User ID this is done automatically";
-            document.getElementById("user_id").readOnly = true;
-            break;
-        case "username":
-            document.getElementById("spanusername").innerHTML = "You can change the Username";
-            memory_username = document.getElementById("username").value;
-            break;
-        case "password":
-            document.getElementById("spanpassword").innerHTML = "You can change the password";
-            break;
-        case "email":
-            document.getElementById("spanemail").innerHTML = "Format NAME@DOMAIN.CC where CC = Country Code";
-            break;
-        case "fname":
-            document.getElementById("spanfname").innerHTML = "";
-            break;
-        case "lname":
-            document.getElementById("spanlname").innerHTML = "";
-            break;
-        case "telephone":
-            document.getElementById("spantelephone").innerHTML = "10 Digits";
-            break;
-        case "address":
-            document.getElementById("spanaddress").innerHTML = "";
-            break;
-        case "token":
-            document.getElementById("spantoken").innerHTML = "Tokens Used by UNIPI Android Application";
-            break;
-        case "block":
-            document.getElementById("spanblock").innerHTML = "0 = Not Blocked | 1 = Blocked";
-            break;
-        default:
-            document.getElementById("spantype").innerHTML = "Usergroups 1-6";
-            break;
+    for(i=0;i<allfields.length;i++){
+        var field = allfields[i];
+        if(field.getAttribute("id") == span.id){
+            if(field.hasAttribute("span")){
+                document.getElementById("span"+span.id).innerHTML = field.getAttribute("span"); 
+                return 0;
+            }
+        }
     }
 }
 
 function validate(span){
+
     if(span.id){
         document.getElementById("span"+span.id).innerHTML = "";
     }
     else{
         document.getElementById("spantype").innerHTML = "";  
     }
-    if(span.id == "username" && document.getElementById("username").value != memory_username){
+    if(span.id == "username" && document.getElementById("username").value != memory_username && document.getElementById("username").value != ""){
         $.ajax({
             url: "../components/users/controller/users.controller.php",
             type: 'POST',
@@ -84,17 +84,32 @@ function validate(span){
             }
         });
     }
+    for(i=0;i<allfields.length;i++){
+        var field = allfields[i];
+        if(field.getAttribute("id") == span.id){
+            if(field.getAttribute("empty") == "false"){
+                if(document.getElementById(span.id).value == ""){
+                    document.getElementById("span"+span.id).innerHTML = "Cannot Leave this field black";    
+                }
+            }
+        }
+    }
     
 }
 
 function save_user(){
+        
     var user_id = document.getElementById("user_id").value;
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     var block = document.getElementById("block").value;
     var email = document.getElementById("email").value;
     var token = document.getElementById("token").value;
-    var type = document.getElementById("type").options[document.getElementById("type").selectedIndex].value.split(" --> ");
+    if(document.getElementById("type").selectedIndex){
+        var type = document.getElementById("type").options[document.getElementById("type").selectedIndex].value.split(" --> ");
+    }else{
+        var type = "1";   
+    }
     
     var fname = document.getElementById("fname").value;
     var lname = document.getElementById("lname").value;
@@ -103,7 +118,47 @@ function save_user(){
     var address = document.getElementById("address").value;
     var cemester = document.getElementById("cemester").value;
     
-    
+    if(!username || !password || !block || !email || !fname || !lname){
+        var inputs = document.getElementsByTagName("input");
+        for(var i=0;i<inputs.length;i++){
+            validate(inputs[i]);   
+        }
+    }
+    else{
+        if(block != "0" && block != "1"){
+            document.getElementById("spanblock").innerHTML = "Wrong input";   
+        }
+        else if(!validateEmail(email)){
+            document.getElementById("spanemail").innerHTML = "Wrong format";   
+        }
+        else{
+            $.ajax({
+                url: "../components/users/controller/users.controller.php",
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    action:"save_user",
+                    user_id : user_id,
+                    username : username,
+                    password: password,
+                    block: block,
+                    email: email,
+                    token: token,
+                    type: type,
+                    fname: fname,
+                    lname: lname,
+                    pname: pname,
+                    telephone: telephone,
+                    address: address,
+                    cemester : cemester,
+                },
+                complete: function(data){
+                    var result1 = data.responseText; 
+                    
+                }
+            });
+        }
+    }
 }
 
 function complete_form(){
@@ -126,7 +181,7 @@ function complete_form(){
                 
                 document.getElementById("spantype").remove();
                 document.getElementById("type").remove();
-                console.log(groups);
+
                 var innerHTML = '<select id="type" class="select">';
                 for(var i=0;i<groups.length;i++){
                     var temp = groups[i];
@@ -143,7 +198,10 @@ function complete_form(){
         });
 }
 
-
+function validateEmail(email) { 
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+} 
 
 function getUrlVars() {
     var vars = {};

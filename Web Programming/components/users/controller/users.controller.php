@@ -26,8 +26,12 @@
 
     if($_POST['action'] == "get_user_username"){
         $collection = new Users_Collection;
-        
-        $temp = $collection->getUserByUsername($_POST['username'], $_POST['exclude']);
+        if($_POST['exclude'] == "new"){
+            $temp = $collection->getUserByUsername($_POST['username'], "-1");
+        }
+        else{
+            $temp = $collection->getUserByUsername($_POST['username'], $_POST['exclude']);
+        }
         echo $temp;
         
     }
@@ -38,6 +42,13 @@
         $temp = $collection->getUserGroups();
         $out = array_values($temp);
         echo json_encode($out);
+    }
+
+    if($_POST['action'] == "save_user"){
+         $collection = new Users_Collection;
+         print_r($_POST);
+         $temp = $collection->addUser($_POST);
+         echo $temp;
     }
 
 
