@@ -6,7 +6,14 @@
 </script>
 
 <?php 
-
+/*
+ * In MVC (Model View Controller) Architecture the view is the User Interface. We have divided this component
+ * in three operations View All/ View Specific/ Add New
+ *----------------------------------------------------------------------------------------------------------*
+ * Add new:
+ * GET Parameters ?component=user&user=new
+ * Reads the user.xml and forms an empty form
+ */
 if(isset($_REQUEST['user'])){
     if($_REQUEST['user'] == "new"){
         ?>
@@ -33,8 +40,8 @@ if(isset($_REQUEST['user'])){
                 var fields = xmlDoc.getElementsByTagName("fields");
                 var fieldset = fields[0].getElementsByTagName("field");
                 var innerHTML = '<div id="user_sub_menu">';
-                innerHTML += '<div id="add_user" onclick="new_user()">+</div>'+
-                        '<div id="delete_users" onclick="delete_selected()">x</div>'+
+                innerHTML += '<div id="add_user" onclick="new_user()">New</div>'+
+                        '<div id="delete_users" onclick="delete_selected()">Delete</div>'+
                         '<div id="save" onclick="save_user()">Save</div>'+
                         '<div id="close" onclick="user_close()">Close</div></div><div id="form_container">';
                         for(var i =0; i<fieldset.length;i++){
@@ -55,6 +62,12 @@ if(isset($_REQUEST['user'])){
         <?php
     }
     else{
+        /*
+         * Add new:
+         * GET Parameters ?component=user&user=#USER_ID
+         * Reads the user.xml and fills the form with the user data from the database
+         */
+        
         ?>
         <script>
             var _user_id = <?php echo '"'.$_REQUEST['user'].'"'; ?>;
@@ -94,8 +107,8 @@ if(isset($_REQUEST['user'])){
                              var fields = xmlDoc.getElementsByTagName("fields");
                              var fieldset = fields[0].getElementsByTagName("field");
                              var innerHTML = '<div id="user_sub_menu">';
-                             innerHTML += '<div id="add_user" onclick="new_user()">+</div>'+
-                                 '<div id="delete_users" onclick="delete_selected()">x</div>'+
+                             innerHTML += '<div id="add_user" onclick="new_user()">New</div>'+
+                                 '<div id="delete_users" onclick="delete_selected()">Delete</div>'+
                                  '<div id="save" onclick="save_user()">Save</div>'+
                                  '<div id="close" onclick="user_close()">Close</div></div><div id="form_container">';
                              for(var i =0; i<fieldset.length;i++){
@@ -115,10 +128,7 @@ if(isset($_REQUEST['user'])){
                  }
              });
             
-            function new_user(){
-                var base = window.location.href.split( '?' );
-                window.location = base[0]+'?component=users&user=new';   
-            }
+            
         
             
         </script>
@@ -127,8 +137,13 @@ if(isset($_REQUEST['user'])){
     
 }
 else{
+    /*
+     * Get All Users:
+     * GET Parameters ?component=user
+     * Gets all the users from the DB and fills a table. Clicking on a user redirects to view specific user
+     */
     ?>
-
+    
     <script>
         //var users_controller = "C:\xampp\htdocs\unipi\components\users\controller\controller.php";
         $.ajax({
@@ -139,7 +154,6 @@ else{
                 action:"get_all_users",
             },
             complete: function(data){
-                
                 _users = new Array();
                 _users = jQuery.parseJSON('[' + data.responseText + ']');
                 users = _users[0];
@@ -149,13 +163,13 @@ else{
         
         function display_all_users(users){
             var innerHTML = '<div id="user_sub_menu">';
-            innerHTML += '<div id="add_user" onclick="new_user()">+</div>'+
-                '<div id="delete_users" onclick="delete_selected()">x</div></div>';
+            innerHTML += '<div id="add_user" onclick="new_user()">New</div>'+
+                '<div id="delete_users" onclick="delete_selected()">Delete</div></div>';
             innerHTML += '<table id="users"><tr><th>Select</th><th>User Id</th><th>Username</th><th>First Name</th><th>Last Name</th><th>E-Mail</th></tr>';
             for(var i=0;i<users.length;i++){
                 var temp_user = users[i];
-                innerHTML += '<tr onclick="edit_user('+(temp_user.user_id)+')"><td style="text-align: center;"><input type="checkbox" onchange="select_user('+temp_user.user_id+')"></td>'+ 
-                             '<td>'+temp_user.user_id+'</td>'+
+                innerHTML += '<tr><td style="text-align: center;"><input type="checkbox" onchange="select_user('+temp_user.user_id+')"></td>'+ 
+                             '<td class="selector" onclick="edit_user('+(temp_user.user_id)+')">'+temp_user.user_id+'</td>'+
                              '<td>'+temp_user.username+'</td>'+ 
                              '<td>'+temp_user.fname+'</td>'+ 
                              '<td>'+temp_user.lname+'</td>'+ 
@@ -165,17 +179,6 @@ else{
             innerHTML += '</table>';
             document.getElementById("tools").innerHTML = innerHTML;   
         }
-        
-        function select_user(id){
-            alert(id);   
-        }
-        
-        function new_user(){
-            var base = window.location.href.split( '?' );
-            window.location = base[0]+'?component=users&user=new';   
-        }
-        
-        
     </script>
 
 <?php

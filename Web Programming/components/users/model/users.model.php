@@ -3,6 +3,14 @@
 class Users_Collection{
     public $users_collection = array();
     public $ucount;
+    
+    public function deleteUser($userID){
+        include('C:\xampp\htdocs\unipi\shared\db_connection.php');
+        $result = mysqli_query($db,"delete from unipi_personal_info where unipi_personal_info.user_id = ".$userID); 
+        $result = mysqli_query($db,"delete from unipi_user where unipi_user.id = ".$userID); 
+        $result = mysqli_query($db,"select * from unipi_user where unipi_user.id = ".$userID);  
+        return $result->num_rows;
+    }
     public function addUser($user){
         include('C:\xampp\htdocs\unipi\shared\db_connection.php');
         if($user['user_id'] == ""){

@@ -1,5 +1,5 @@
 
-var menu_controller = "../components/menus/controller/menu_controller.php";
+
 $(document).ready(function(){
     $('#panel_users').hover(function() {
         $("#panel_users").addClass('transition');
@@ -34,6 +34,7 @@ $(document).ready(function(){
     });
 });
 
+
 function load_controls(item){
     
     switch(item){
@@ -42,7 +43,8 @@ function load_controls(item){
             window.location = base[0]+"?component=users";
             break;
         case 2:
-            load_menus();
+            var base = document.URL.split("?");
+            window.location = base[0]+"?component=menus";
             break;
         case 3:
             load_articles();
@@ -52,6 +54,7 @@ function load_controls(item){
             break;
     }
 }
+
 
 function load_users(){
     

@@ -12,6 +12,9 @@ if($site == "admin"){
         if($_REQUEST['component']=="users"){
             include 'C:\xampp\htdocs\unipi\components\users\view\users.view.php';   
         }
+        else if($_REQUEST['component']=="menus"){
+            include 'C:\xampp\htdocs\unipi\components\menus\view\menus.view.php';
+        }
         else{
             include 'C:\xampp\htdocs\unipi\shared\empty.php'; 
         }

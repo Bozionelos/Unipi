@@ -1,6 +1,6 @@
 <?php
 
-    include 'C:\xampp\htdocs\unipi\components\menus\model\menu.php';
+    include 'C:\xampp\htdocs\unipi\components\menus\model\menus.model.php';
     session_start();
     if($_POST["action"] == "get_menu"){
         $collection = new Menu_Collection;

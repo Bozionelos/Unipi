@@ -1,5 +1,12 @@
 
-    var allfields;
+var allfields;
+var users_to_delete = [];
+var memory_username;
+/*
+ * When the page loads we fetch the XML in case we need to use the fields for extra validations
+ *----------------------------------------------------------------------------------------------------*
+ * Problem to be solved : Ajax as asynchronous might not be completed when the user clicks on the form
+ */
  $.ajax({
      url: "../components/users/controller/users.controller.php",
     type: 'POST',
@@ -24,15 +31,10 @@
     }
  });
 
-Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-}
-NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = 0, len = this.length; i < len; i++) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
+
+function refresh(){
+    var base = window.location.href;
+    window.location = base;   
 }
 
 function user_close(){
@@ -44,7 +46,7 @@ function edit_user(id){
     var base = window.location.href.split( '?' );
     window.location = base[0]+"?component=users&user="+id;
 }
-var memory_username;
+
 
 function display_span(span){
     for(i=0;i<allfields.length;i++){
@@ -59,7 +61,6 @@ function display_span(span){
 }
 
 function validate(span){
-
     if(span.id){
         document.getElementById("span"+span.id).innerHTML = "";
     }
@@ -98,7 +99,6 @@ function validate(span){
 }
 
 function save_user(){
-        
     var user_id = document.getElementById("user_id").value;
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
@@ -154,13 +154,18 @@ function save_user(){
                 },
                 complete: function(data){
                     var result1 = data.responseText; 
-                    
+                    alert("User saved successfully");
+                    refresh();
                 }
             });
         }
     }
 }
 
+/*
+ * This functions reads from the database the available usergroups and creates a drop down menu for the user to select
+ * In case of an existing user it displays his usergroup
+ */
 function complete_form(){
     $.ajax({
             url: "../components/users/controller/users.controller.php",
@@ -196,6 +201,76 @@ function complete_form(){
                 document.getElementById("form_container").innerHTML += innerHTML; 
             }
         });
+}
+
+/*
+ * Handle the checkboxes
+ */
+function select_user(id){
+    for(var i =0;i<users_to_delete.length; i++){
+        if(users_to_delete[i]== id){
+            users_to_delete.remove(i,i);
+            return 0;   
+        }
+    }
+    users_to_delete.push(id);
+}
+/*
+ * Delete selected Users.
+ * @params
+ * action : "delete_users"
+ * users : #USER_IDS separated by commas
+ */
+function delete_selected(){
+    var _users_to_delete ="";
+    for(var i=0;i<users_to_delete.length;i++){
+        _users_to_delete += users_to_delete[i]+",";
+    }
+    _users_to_delete = _users_to_delete.substr(0,_users_to_delete.length-1);
+    $.ajax({
+        url: "../components/users/controller/users.controller.php",
+        type: 'POST',
+        dataType: "json",
+        data: {
+            action:"delete_users",
+            users_to_delete : _users_to_delete,
+        },
+        complete: function(data){
+            var result1 = data.responseText; 
+            if(result1.contains("1")){
+                alert("Error please contact site's Creator");   
+            }
+            alert("Users deleted successfully");   
+            refresh();
+        }
+    });
+}
+        
+function new_user(){
+            var base = window.location.href.split( '?' );
+            window.location = base[0]+'?component=users&user=new';   
+        }
+
+/*
+ * Prototype and general functions
+ */
+
+Array.prototype.remove = function(from, to) {
+    var rest = this.slice((to || from) + 1 || this.length);
+    this.length = from < 0 ? this.length + from : from;
+    return this.push.apply(this, rest);
+};
+
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = 0, len = this.length; i < len; i++) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
 }
 
 function validateEmail(email) { 

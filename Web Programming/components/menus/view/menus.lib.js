@@ -11,6 +11,7 @@
  */
 var start_text;
 var menus = "";
+var menu_controller = "../components/menus/controller/menus.controller.php";
 function load_menus(){
     $.ajax({
             url: menu_controller,
@@ -57,19 +58,11 @@ function display_menu_tool(){
     
     var innerHTML2 = '<div id="menu_functions"></div></div>';
     document.getElementById("tools").innerHTML += innerHTML2;
-    reorder_menus();
+    display_functions();
     reload_sortable();
-    
+    $("#tools").css("padding-bottom","0px");
 }
 
-function reorder_menus(){
-    var innerHTML2 = '<div id="site_layout_top" ondrop="drop(event)" ondragover="allowDrop(event)"></div>'+
-     '<div id="site_layout_right" ondrop="drop(event)" ondragover="allowDrop(event)"></div>'+
-     '<div id="site_layout_content"> Your Content will be displayed here</div>'+
-     '<div id="site_layout_left" ondrop="drop(event)" ondragover="allowDrop(event)"></div>'+
-     '<div id="site_layout_footer" ondrop="drop(event)" ondragover="allowDrop(event)">';
-    document.getElementById("menu_functions").innerHTML = innerHTML2;
-}
 function get_menu_title(i){
     switch(i){
         case 1:
@@ -81,6 +74,29 @@ function get_menu_title(i){
         case 4:
             return "Left Menu";
     }
+}
+
+function display_functions(){
+    var innerHTML = '<div id="top_actions">'
+    +'<div class="tabs" id="article" onclick="select_article()">Article</div>'
+    +'<div class="tabs" id="url" onclick="select_url()">Link</div>'
+    +'<div class="tabs" id="login" onclick="select_login()">Login</div>'
+    +'<div class="tabs" id="registration" onclick="select_registration()">Register</div>'
+    +'</div>';
+    innerHTML +='<div id="new_menu_container">'+
+        '<div class="fieldlabel">Title</div><input id="menu_title" class="input_fields" type="text" onkeypress="make_alias()" placeholder="Title"></input>'+
+        '<br><div class="span_label"></div>'+
+        '<div class="fieldlabel">Alias</div><input id="menu_title" class="input_fields" type="text" readonly placeholder="Alias"></input>'+
+        '<br><div class="span_label"></div>'+
+        '<div class="fieldlabel">Parent</div><select id="menu_parent" class="select">'+
+        '<option value="1">Top Menu</option>'+
+        '<option value="2">Right Menu</option>'+
+        '<option value="3">Footer Menu</option>'+
+        '<option value="4">Left Menu</option>'+
+        '</select>'+
+        '<br><div class="span_label"></div>'+
+        '<div class="fieldlabel">Visible</div><input type="checkbox" style="float:left; margin-left:15px; margin-top:5px;"></input><br><div class="span_label"></div></div>';
+    document.getElementById("menu_functions").innerHTML = innerHTML;
 }
 
 function allowDrop(ev) {

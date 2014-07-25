@@ -46,9 +46,17 @@
 
     if($_POST['action'] == "save_user"){
          $collection = new Users_Collection;
-         print_r($_POST);
          $temp = $collection->addUser($_POST);
          echo $temp;
+    }
+    
+    if($_POST['action'] == "delete_users"){
+        $collection = new Users_Collection;
+        $ids = explode(",", $_POST['users_to_delete']);
+        foreach($ids as $id_to_delete){
+            $temp = $collection->deleteUser($id_to_delete);
+            echo $temp;
+        }
     }
 
 
